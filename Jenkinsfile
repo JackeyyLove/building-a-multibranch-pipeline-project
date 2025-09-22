@@ -1,9 +1,6 @@
 pipeline { 
     agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
-        }
+       label "kubeagent"
     } 
     environment { 
         CI = "true"
@@ -11,12 +8,16 @@ pipeline {
     stages {
         stage ("Build") { 
             steps {
-                sh "npm install"
+                container('nodejs') {
+                    sh "npm install"
+                }
             }
         }
         stage ("Test") { 
             steps {
-                sh "./jenkins/script/test.sh"
+                container('nodejs') {
+                    sh "./jenkins/script/test.sh"
+                }
             }
         }   
     }
