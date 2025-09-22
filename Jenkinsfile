@@ -16,7 +16,7 @@ pipeline {
         stage ("Test") { 
             steps {
                 container('nodejs') {
-                    sh "./jenkins/script/test.sh"
+                    sh "./jenkins/scripts/test.sh"
                 }
             }
         }   
